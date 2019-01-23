@@ -7,20 +7,24 @@
 </head>
 <body style="background-image: url({{ url_for('static', filename='images/england-background.jpg') }});
              background-size: cover;">
-    <div id="sign-in-column">
-        <form action="/sign-in">
-            <h1>Sign In</h1>
-            <p><input name="login" placeholder="login" type="password"/></p>
-            <p><input name="password" placeholder="password" type="password"/></p>
-        </form>
-    </div>
-    <div id="sign-up-column">
-        <form action="/sign-up">
-            <h1>Sign Up</h1>
-            <p><input name="login" placeholder="login"/></p>
-            <p><input name="password" placeholder="password" type="password"/></p>
-            <p><input name="repeat-password" placeholder="password" type="password"/></p>
-        </form>
+    <div id="authorisation-column">
+        <div id="sign-in">
+            <form action="/sign-in">
+                <h1>Sign In</h1>
+                <p><input name="login" placeholder="login" type="password"/></p>
+                <p><input name="password" placeholder="password" type="password"/></p>
+                <p><input type="submit" value="Sign In"/></p>
+            </form>
+        </div>
+        <div id="sign-up">
+            <form action="/sign-up">
+                <h1>Sign Up</h1>
+                <p><input name="login" placeholder="login"/></p>
+                <p><input name="password" placeholder="password" type="password"/></p>
+                <p><input name="repeat-password" placeholder="password" type="password"/></p>
+                <p><input type="submit" value="Sign Up"/></p>
+            </form>
+        </div>
     </div>
     <div id="about-column">
         <h1>About Us</h1>
