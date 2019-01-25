@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}"/>
+    <meta charset="UTF-8">
+    <title>Search-people</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="left-menu">
+        <p><a href="/profile">Profile</a></p>
+        <p><a href="/logout">Log Out</a></p>
+    </div>
+    <div id="search-field">
+        <h1>Find a pearson</h1>
+        <form action="#">
+            <input name="name" placeholder="Name" id="search-name" onchange="refreshSearch()"/>
+        </form>
+        <div id="people-list">
+
+        </div>
+    </div>
+
+    <script>
+
+        function formPearsonDiv(data) {
+            return "<div id='person'><p>" + data[0] + "</p><p>" + data[1] + "</p></div>";
+        }
+
+        function showPeople(data, page) {
+            data = JSON.parse(data);
+            for (var i = 0; data[i] != undefined; i++)
+                document.getElementById('people-list').innerHTML += formPearsonDiv(data[i]);
+        }
+
+        function refreshSearch() {
+            searchName = document.getElementById('search-name').value;
+            $.post('/get-search-people-data', {
+                'name': searchName },
+                function (data) {
+                    showPeople(data, 0);
+                });
+        }
+
+        refreshSearch();
+    </script>
+</body>
+</html>

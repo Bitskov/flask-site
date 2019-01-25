@@ -1,7 +1,8 @@
 import os
 import hashlib
-from flask import Flask, render_template, url_for, request, redirect, make_response
+from flask import Flask, render_template, url_for, request, redirect, make_response, jsonify
 import sqlite3
+import json
 
 DB_NAME = 'data.db'
 
@@ -69,6 +70,26 @@ def logout():
 def profile():
     return render_template('profile.html')
 
+
+@app.route('/search-people')
+def search_people():
+    return render_template('search-people.html')
+
+
+#
+# POST QUERIES
+#
+
+@app.route('/get-search-people-data', methods=['post'])
+def get_search_people_data():
+    search_data = dict(request.form)
+    token = request.cookies.get('token')
+    search_data['name'] = search_data['name'][0]
+    db = sqlite3.connect(DB_NAME)
+    search_people_data = db.execute("SELECT name, surname FROM users INNER JOIN users_data ON users.id = users_data.id"
+                                    " WHERE token != '%s'" % token).fetchall()
+    db.close()
+    return json.dumps(search_people_data)
 #
 # CSS PROCESSING
 #
